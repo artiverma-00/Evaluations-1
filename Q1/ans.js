@@ -13,35 +13,38 @@ c. Maintain transaction history array
 d. Return error messages instead of crashing.*/
 
 function createBankAccount() {
-    let balance = 0;
-    let history = []
-}
-return {
+  let balance = 0;              
+
+  return {
     deposit(amount) {
-        if (amount <= 0) {
-            return "invaild deposit amount"
-        }
-        balance += amount
-        history.pushState(`Deposited ${amount}`)
-        return balance;
+      if (amount <= 0) {
+        return "Error: Invalid deposit amount";
+      }
+      balance += amount;
+      history.push(`Deposited ${amount}`);
+      return balance;
     },
+
     withdraw(amount) {
-        if (amount <= 0) {
-            return "invaild withdraw amount"
-        }
-        if (amount > balance) {
-            return "insufficient balance"
-        }
-        balance -= amount;
-        history.pushState(`withdraw ${amount}`)
-        return balance;
+      if (amount <= 0) {
+        return "Error: Invalid withdraw amount";
+      }
+      if (amount > balance) {
+        return "Error: Insufficient balance";
+      }
+      balance -= amount;
+      history.push(`Withdrew ${amount}`);
+      return balance;
     },
+
     getBalance() {
-        return balance;
+      return balance;
     },
+
     getHistory() {
-        return history;
+      return history;
     }
+  };
 }
 
 const account = createBankAccount();
