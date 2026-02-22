@@ -16,3 +16,33 @@ b. Return an id that can be used to stop execution.
 c. Implement myClearInterval(id) to stop it.
 d. Must use setTimeout internally.
 e. Maintain timer reference privately. */
+
+function createRateLimiter(limit, interval) {
+  let count = 0;        
+  let timer = null;   
+
+  return function () {
+    if (!timer) {
+      timer = setTimeout(() => {
+        count = 0;
+        timer = null;
+      }, interval);
+    }
+
+    if (count < limit) {
+      count++;
+      return "Allowed";
+    } else {
+      return "Blocked";
+    }
+  };
+}
+const limiter = createRateLimiter(2, 3000);
+
+console.log(limiter()); // Allowed
+console.log(limiter()); // Allowed
+console.log(limiter()); // Blocked
+
+setTimeout(() => {
+  console.log(limiter()); // Allowed (reset)
+}, 4000);
