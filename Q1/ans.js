@@ -13,7 +13,8 @@ c. Maintain transaction history array
 d. Return error messages instead of crashing.*/
 
 function createBankAccount() {
-  let balance = 0;              
+  let balance = 0;      
+  let history = [];    
 
   return {
     deposit(amount) {
@@ -47,9 +48,9 @@ function createBankAccount() {
   };
 }
 
+
 const account = createBankAccount();
-account.deposit(200)
-account.deposit(100)
-console.log(account.getBalance())
-console.log(account.getHistory())
-console.log(account.balance)
+console.log(account.deposit(500));
+console.log(account.withdraw(200));
+console.log(account.getBalance());
+console.log(account.getHistory());
